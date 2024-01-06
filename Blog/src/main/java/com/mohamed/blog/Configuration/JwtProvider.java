@@ -3,7 +3,6 @@ package com.mohamed.blog.Configuration;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +12,12 @@ import java.util.Date;
 @Service
 public class JwtProvider {
 
-    @Value("${env.JWT_SECRET}")
-    private String jwtSecret;
-
-    private final SecretKey secretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    private SecretKey secretKey = Keys.hmacShaKeyFor(JwtConstants.JWT_SECRET.getBytes());
 
     // generate token
     public String generateToken(Authentication authentication){
         String jsonWebToken = Jwts.builder().setIssuedAt(new Date())
-                .setExpiration(new Date(new Date().getTime() + 2400))
+                .setExpiration(new Date(new Date().getTime() + 24000))
                 .claim("email", authentication.getName())
                 .signWith(secretKey)
                 .compact();
