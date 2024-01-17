@@ -4,6 +4,7 @@ import com.mohamed.blog.Model.Post;
 import com.mohamed.blog.Model.User;
 import com.mohamed.blog.Service.PostService;
 import com.mohamed.blog.Service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,13 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/posts")
+@RequiredArgsConstructor
 public class PostController {
 
-    @Autowired
-    private PostService postService;
 
-    @Autowired
-    private UserService userService;
+    private final PostService postService;
+
+    private final UserService userService;
 
     // create new Post
     @PostMapping("/user/{userId}")

@@ -22,19 +22,6 @@ public class UserController {
         return users;
     }
 
-    // create user
-    @PostMapping("/create-user")
-    public User createUser(@RequestBody User user) throws Exception {
-        // check if this email exist
-        User isExist = userRepo.findUserByEmail(user.getEmail());
-            if (isExist != null) {
-                throw new Exception("Sorry The Email : " + user.getEmail() + " Already Exist.");
-            }
-        // else create a new user
-        User newUser = userRepo.save(user);
-        return newUser;
-    }
-
     // delete user by id
     @DeleteMapping("delete-user/{id}")
     public String deleteUser(@PathVariable Long id){
